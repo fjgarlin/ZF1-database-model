@@ -1,0 +1,121 @@
+<? $view = Zend_Layout::getMvcInstance()->getView(); ?>
+
+<!-- start of datatables partial -->
+
+<script type="text/javascript">
+	<!--
+
+	$(document).ready(function() {
+		if($('#tabled').length)
+		{
+			//********datatables initialization for default datatables id and class
+			<? $extra_params = ''; ?>
+			<? if (count($view->extra_params)): ?>
+				<? foreach ($view->extra_params as $key => $value): ?>
+					<? $extra_params .= "/$key/$value"; ?>
+				<? endforeach; ?>
+			<? endif; ?>				
+	
+			//create download button (will get ALL the records)
+			TableTools.BUTTONS.download = {
+				"sAction": "text", "sFieldBoundary": "", "sFieldSeperator": "\t",
+				"sNewLine": "<br>", "sToolTip": "", "sButtonClass": "DTTT_button_text",
+				"sButtonClassHover": "DTTT_button_text_hover", "sButtonText": "Download",
+				"mColumns": "all", "bHeader": true, "bFooter": true, "sDiv": "",
+				"fnMouseover": null, "fnMouseout": null,
+				"fnClick": function( nButton, oConfig ) {
+					var oParams = this.s.dt.oApi._fnAjaxParameters( this.s.dt );
+					var params = $.param(oParams).replace(/iDisplayLength=([0-9]+)&/, "iDisplayLength=-1&");	//get all the records
+					
+					var iframe = document.createElement('iframe');
+					iframe.style.height = "0px";
+					iframe.style.width = "0px";
+					iframe.src = oConfig.sUrl+"?"+params;
+					
+					document.body.appendChild( iframe );
+				},
+				"fnSelect": null, "fnComplete": null, "fnInit": null
+			};
+			
+			$('#tabled').dataTable({
+				"sPaginationType": "full_numbers",
+				"iDisplayLength": 15,
+				"bFilter": true,
+				"bLengthChange": false,
+				"bStateSave": true,
+				"bSort": true,
+				"sDom": 'riplf<"clearfix">tT',	//Table tools, pRocessing, table, information, pagination, length changing, filter
+				"oTableTools": {
+					"sSwfPath": "/js/plugins/datatables/media/swf/copy_cvs_xls_pdf.swf",
+					"aButtons": [
+						{
+							"sExtends":    "collection",
+							"sButtonText": "<?= $view->translate->_('Export') ?>",
+							"aButtons":    [
+								"csv",
+								"pdf"
+								<? if ($view->ajaxget): ?>
+									,{
+										"sExtends": "download",
+										"sButtonText": "CSV <?= $view->translate->_('Full') ?>",
+										"sUrl": "/<?= $view->module() ?>/<?= $view->controller() ?>/async/output/csv<?= $extra_params ?>"
+									}
+								<? endif; ?>
+							]
+						}
+					]
+				},
+				"aoColumnDefs": [{
+					"bSortable": false,
+					"bSearchable": false,
+					"sClass": "readonly",
+					"aTargets": [ 'tview', 'tedit', 'tdelete', 'check' ]
+				}],
+				"oLanguage": { "sUrl": "/js/plugins/datatables/languages/<?= file_exists('js/plugins/datatables/languages/' . Expose_User::getUser()->language . '.txt') ? Expose_User::getUser()->language . '.txt' : "en.txt"; ?>"},		//more langs: http://datatables.net/plug-ins/i18n
+				"fnDrawCallback": function( oSettings ) {
+					if(typeof afterDatatables == 'function') {	//if the function exists just call it
+						afterDatatables(oSettings);
+					}
+				}
+				
+				<? if ($view->ajaxget): ?>
+					//ajax data retrieving
+					,
+					"bProcessing": true,
+					"bServerSide": true,
+					"sAjaxSource": "/<?= $view->module() ?>/<?= $view->controller() ?>/async<?= $extra_params ?>",
+					"fnServerData" : function ( url, data, callback, settings ) {
+						$.ajax(
+						{
+							"url": url,
+							"data": data,
+							"success": function (json)
+							{
+								$(settings.oInstance).trigger('xhr', settings);
+								callback( json );
+							},
+							"dataType": "json",
+							"cache": false,
+							"error": function (xhr, error, thrown) {
+								{
+									if ( error == "parsererror" )
+									{
+										<? if (APPLICATION_ENV != 'development'): ?>
+											//document.location = '/';
+										<? endif; ?>
+									}
+								}
+							}
+						});
+					}
+				<? endif; ?>
+			});
+		
+		//********** end datatables
+		}
+	});
+	
+	-->
+</script>
+
+<!-- end of datatables partial -->
