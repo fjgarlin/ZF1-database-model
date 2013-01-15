@@ -10,23 +10,12 @@ class LogsController extends Zend_Controller_Action
 	
 	public function indexAction()
 	{
-		$type = $this->_getParam('type');
-		$this->view->type = $type;
+		//data retrieved via AJAX
+		$this->view->ajaxget = true;
 	}
 	
-	public function databaseAction()
-	{
-		$usersModel = new Admin_Model_Users();
-		$usersTable = $usersModel->getTableName();
-		
-		$model = new Application_Model_DbLogger();
-		$sortable_columns = array('date_created', 'user_id', "$usersTable.username", 'db_table', 'action', 'data');		
-		
-		$res = $this->_helper->Datatables($sortable_columns, $model, false, false, false);
-		echo $res;		
-	}
 	
-	public function activityAction()
+	public function asyncAction()
 	{
 		$usersModel = new Admin_Model_Users();
 		$usersTable = $usersModel->getTableName();
@@ -36,6 +25,5 @@ class LogsController extends Zend_Controller_Action
 
 		$res = $this->_helper->Datatables($sortable_columns, $model, false, false, false);
 		echo $res;		
-		
 	}
 }
