@@ -1,14 +1,13 @@
 <?php
 /**
- * Expose_Controller_Action_Helper_Datatables
+ * Base_Controller_Action_Helper_Datatables
  *
  * Calls the datatables method in the model and performs the required actions for an ajax action
  *
- * @author Fran Garcia <fgarcia@friendmts.co.uk>
- * @package Expose Package
- * @copyright Copyright (c) 2012 Friend Media Technology Systems Ltd.
+ * @author Fran Garcia <fjgarlin@gmail.com>
+ * @package Base Package
  */
-class Expose_Controller_Action_Helper_Datatables extends Zend_Controller_Action_Helper_Abstract
+class Base_Controller_Action_Helper_Datatables extends Zend_Controller_Action_Helper_Abstract
 {
 	/**
 	 * Perform helper when called as $this->_helper->Datatables() from an action controller

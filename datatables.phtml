@@ -71,7 +71,7 @@
 					"sClass": "readonly",
 					"aTargets": [ 'tview', 'tedit', 'tdelete', 'check' ]
 				}],
-				"oLanguage": { "sUrl": "/js/plugins/datatables/languages/<?= file_exists('js/plugins/datatables/languages/' . Expose_User::getUser()->language . '.txt') ? Expose_User::getUser()->language . '.txt' : "en.txt"; ?>"},		//more langs: http://datatables.net/plug-ins/i18n
+				"oLanguage": { "sUrl": "/js/plugins/datatables/languages/<?= file_exists('js/plugins/datatables/languages/' . Base_User::getUser()->language . '.txt') ? Base_User::getUser()->language . '.txt' : "en.txt"; ?>"},		//more langs: http://datatables.net/plug-ins/i18n
 				"fnDrawCallback": function( oSettings ) {
 					if(typeof afterDatatables == 'function') {	//if the function exists just call it
 						afterDatatables(oSettings);

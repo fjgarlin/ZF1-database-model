@@ -3,11 +3,10 @@
 /**
  * Settings_Model_Appliancesthumbnails
  *
- * @author Gurbinder Singh <gsingh@friendmts.co.uk>
- * @package Expose Package
- * @copyright Copyright (c) 2012 Friend Media Technology Systems Ltd.
+ * @author Fran Garcia <fjgarlin@gmail.com>
+ * @package Base Package
  */
-class Settings_Model_Appliancesthumbnails extends FCL_Fingerprinting_Dao_AppliancesThumbnails
+class Settings_Model_Appliancesthumbnails extends Base_Model
 {
   
 }

@@ -4,7 +4,7 @@ class LogsController extends Zend_Controller_Action
 {
 	public function init()
 	{
-		if (! Expose_User::isAdmin())
+		if (! Base_User::isAdmin())
 			$this->_redirect('/index/dash');
 	}
 	

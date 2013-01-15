@@ -2,11 +2,10 @@
 /**
  * Settings_Form_Isp. Form object for isp management. 
  *
- * @author Francisco Garcia <fgarcia@friendmts.co.uk>
- * @package Expose Package
- * @copyright Copyright (c) 2012 Friend Media Technology Systems Ltd.
+ * @author Fran Garcia <fjgarlin@gmail.com>
+ * @package Base Package
  */
-class Settings_Form_Isp extends Expose_Form
+class Settings_Form_Isp extends Base_Form
 {
 	/**
 	 * Whether the data given is valid or not. Calls parent function after initial checking. 

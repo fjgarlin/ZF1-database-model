@@ -2,11 +2,10 @@
 /**
  * Settings_Model_Isps. Isps model.
  *
- * @author Francisco Garcia <fgarcia@friendmts.co.uk>
- * @package Expose Package
- * @copyright Copyright (c) 2012 Friend Media Technology Systems Ltd.
+ * @author Fran Garcia <fjgarlin@gmail.com>
+ * @package Base Package
  */
-class Settings_Model_Isps extends Expose_Model
+class Settings_Model_Isps extends Base_Model
 {
 	/**
 	 * @var array $_validationRules rules to apply to the model before saving any data
